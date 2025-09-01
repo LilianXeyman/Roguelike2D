@@ -1,3 +1,4 @@
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,12 +7,7 @@ public class PlayerController : MonoBehaviour
     // En este script se especificará todo aquello relacionado con el movimiento del jugador
     private BoardManager m_Board;//Accede al otro script
     private Vector2Int m_CellPosition;//Guarda la información de la celda en la que estas
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Vector2Int newCellTarget = m_CellPosition;
@@ -42,8 +38,8 @@ public class PlayerController : MonoBehaviour
             BoardManager.CellData cellData = m_Board.GetCellData(newCellTarget);
             if (cellData != null && cellData.passable)
             {
-                m_CellPosition = newCellTarget;
-                transform.position = m_Board.CellToWorld(m_CellPosition); //Cambia la posicion del personaje
+                GameManager.instance.turnManager.Tick();
+                MoveTo(newCellTarget); //Cambia la posicion del personaje
             }
         }
 
@@ -51,7 +47,13 @@ public class PlayerController : MonoBehaviour
     public void Spawn(BoardManager boardManager, Vector2Int cell)
     {
         m_Board = boardManager;
+
+        MoveTo(cell);
+    }
+    public void MoveTo(Vector2Int cell)
+    {
         m_CellPosition = cell;
-        transform.position = m_Board.CellToWorld(cell);
+        transform.position = m_Board.CellToWorld(m_CellPosition);
     }
 }
+

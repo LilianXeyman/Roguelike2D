@@ -35,7 +35,7 @@ public class BoardManager : MonoBehaviour
     [Header("Jugador")]
     public PlayerController player;
 
-    void Start()
+    public void Init()
     {
         m_Tilemap = GetComponentInChildren<Tilemap>(); //Accede al hijo del archivo en el que está este script. Concretamente al Tilemap
         m_Grid = GetComponentInChildren<Grid>(); //Te dice la posición en la que "estas"
@@ -65,7 +65,7 @@ public class BoardManager : MonoBehaviour
                 m_Tilemap.SetTile(new Vector3Int(x, y, 0), tile); //Colocas el tile aleatorio en la posición determinada por x e y
             }
         }
-        player.Spawn(this, new Vector2Int(1, 1));
+        //player.Spawn(this, new Vector2Int(1, 1));
     }
     public UnityEngine.Vector3 CellToWorld(Vector2Int cellIndex)
     {
