@@ -37,6 +37,15 @@ public class PlayerController : MonoBehaviour
             newCellTarget.x -= 1;
             hasMoved = true;
         }
+        if (hasMoved) //Comprueba si la casilla a la que te puedes mover te deja pasar
+        {
+            BoardManager.CellData cellData = m_Board.GetCellData(newCellTarget);
+            if (cellData != null && cellData.passable)
+            {
+                m_CellPosition = newCellTarget;
+                transform.position = m_Board.CellToWorld(m_CellPosition); //Cambia la posicion del personaje
+            }
+        }
 
     }
     public void Spawn(BoardManager boardManager, Vector2Int cell)
